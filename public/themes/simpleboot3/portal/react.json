@@ -1,0 +1,17 @@
+{
+    "name": "React页",
+    "action": "portal/React/index",
+    "description": "React页模板文件",
+    "order": 10.0,
+    "more": {
+        "vars": {
+            "hot_articles_category_id": {
+                "title": "Hot Articles分类ID",
+                "value": "2",
+                "type": "text",
+                "tip": "",
+                "rule": []
+            }
+        }
+    }
+}

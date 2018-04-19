@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:69:"C:\wwwroot\htdocs\thinkcmf\public/plugins/react/view/admin_index.html";i:1523802352;s:69:"C:\wwwroot\htdocs\thinkcmf\public\plugins\react\view\public\head.html";i:1516676889;s:68:"C:\wwwroot\htdocs\thinkcmf\public\plugins\react\view\public\vue.html";i:1523801642;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:69:"C:\wwwroot\htdocs\thinkcmf\public/plugins/react/view/admin_index.html";i:1523802352;s:69:"C:\wwwroot\htdocs\thinkcmf\public\plugins\react\view\public\head.html";i:1516676889;s:68:"C:\wwwroot\htdocs\thinkcmf\public\plugins\react\view\public\vue.html";i:1523892074;}*/ ?>
 <!doctype html>
 <html>
 
@@ -33,7 +33,8 @@
 <script type="text/javascript" src="/thinkcmf/public/static/js/jquery.js"></script>
 <script type="text/javascript" src="/thinkcmf/public/static/vue/vue.min.js"></script>
 <script type="text/javascript" src="/thinkcmf/public/static/iview/iview.min.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+<script src="/thinkcmf/public/static/vue/axios.min.js"></script>
 </head>
 
 <body>

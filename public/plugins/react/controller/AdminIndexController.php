@@ -65,18 +65,16 @@ class AdminIndexController extends PluginAdminBaseController
         $users = Db::name("reactvue")->where('rid=2')->limit(0, 1)->select();//根据id获取当前数据
         $alldata = Db::name("reactvue")->limit(0, 10)->select();
         //print_r($alldata);
-        $outputform="<template>";
+        $outputform="<template>\n";
+
         $formtype="";
         //print_r($alldata[0]['rid']);
         $len=count($alldata);
-        for ($i=0; $i <$len; $i++) { 
+        /*for ($i=0; $i <$len; $i++) { 
             //print_r($alldata[$i]);
-            /*for ($k=0; $k <3 ; $k++) { 
-                print_r([$k]);
-            }*/
-            //print_r($alldata[$i]);
+            print_r($alldata[$i]['name_en']);
             foreach ($alldata[$i] as $key => $value) {
-                //print_r($key.':'.$value);
+                echo $key.':'.$value.'<br>';
                 if($key=='formtype' && $alldata[$i]['formtype']==0){
                     //print_r('song-');
                     $outputform.="<FormItem label=\"标题\" prop=\"{$key}\">
@@ -86,6 +84,34 @@ class AdminIndexController extends PluginAdminBaseController
                     $outputform.="<FormItem label=\"内容\" prop=\"{$key}\">
                         <Input v-model=\"formItem.{$key}\" type=\"textarea\" :rows=\"4\" placeholder=\"内容\"></Input>
                     </FormItem>";
+                }
+            }
+        }*/
+
+        foreach ($alldata as $key => $value) {
+            //print_r($value);
+            foreach ($value as $k => $val) {
+                //print_r($k.':'.$val);
+                switch ($k) {
+                    case 'formtype':
+                        if ($val==0) {
+    $outputform.="<FormItem label=\"{$value['name_zh']}\" prop=\"{$value['name_en']}\">
+    <DatePicker type=\"date\" multiple placeholder=\"Select date\" style=\"width: 300px\"></DatePicker>
+    </FormItem>\n";
+                        }elseif ($val==1) {
+    $outputform.="<FormItem label=\"{$value['name_zh']}\" prop=\"{$value['name_en']}\">
+    <Input v-model=\"formItem.{$value['name_en']}\" type=\"textarea\" :rows=\"4\"></Input>
+    </FormItem>\n";
+                        }else{
+    $outputform.="<FormItem label=\"{$value['name_zh']}\" prop=\"{$value['name_en']}\">
+    <Input v-model=\"formItem.{$value['name_en']}\" placeholder=\"标题\"></Input>
+    </FormItem>\n";
+                        }
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
                 }
             }
         }
@@ -122,9 +148,28 @@ class AdminIndexController extends PluginAdminBaseController
                 
                 break;
         }*/
-        $outputform.="</template>";
-        //print_r($outputform);
-        echo file_put_contents("components/notice.vue",$outputform);//createVue
+        $outputform.="</template>\n";
+        $outputform.="<script>";
+        $outputform.="
+            import './index.css';
+            import sysbinVerification from '../lib/verification';
+            import symbinUtil from '../lib/util';
+            import Vue from 'vue';
+            export default {
+                props:['obserable'],
+                name:'zmitiindex',
+                data(){
+                },
+                methods:{
+                },
+                mounted(){//页面加载完成后显示
+                               
+                },
+            }
+        ";
+        $outputform.="</script>\n";
+        print_r($outputform);
+        //echo file_put_contents("components/notice.vue",$outputform);//createVue
         $this->assign("outputform",$outputform);
         $this->assign("formtype",$formtype);
         $this->assign("users", $users);

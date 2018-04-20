@@ -123,7 +123,7 @@ function _sp_helloworld3(){
 
     </style>
     <?php 
-    \think\Hook::listen('before_head_end',$temp5ad803d898a71,null,false);
+    \think\Hook::listen('before_head_end',$temp5ad9742946836,null,false);
  ?>
 </head>
 <body class="body-white">
@@ -144,8 +144,8 @@ function _sp_helloworld3(){
             <ul id="main-menu" class="nav navbar-nav">
                 <?php
 
-function __parse_navigation6e76bcc4f3f9404c3a059d6a7c917d41($menus,$level=1){
-$_parse_navigation_func_name = '__parse_navigation6e76bcc4f3f9404c3a059d6a7c917d41';
+function __parse_navigationf78030d7e7044ccdb35e4f122e11654b($menus,$level=1){
+$_parse_navigation_func_name = '__parse_navigationf78030d7e7044ccdb35e4f122e11654b';
 if(is_array($menus) || $menus instanceof \think\Collection || $menus instanceof \think\Paginator): if( count($menus)==0 ) : echo "" ;else: foreach($menus as $key=>$menu): if(empty($menu['children'])): if($level > 1): ?>
                             <li class="menu-item menu-item-level-<?php echo $level; ?> levelgt1">
                                 <a href="<?php echo (isset($menu['href']) && ($menu['href'] !== '')?$menu['href']:''); ?>" target="<?php echo (isset($menu['target']) && ($menu['target'] !== '')?$menu['target']:''); ?>">
@@ -177,9 +177,9 @@ if(is_array($menus) || $menus instanceof \think\Collection || $menus instanceof 
     $navMenuModel = new \app\admin\model\NavMenuModel();
     $menus = $navMenuModel->navMenusTreeArray('',0);
 if(''==''): ?>
-    <?php echo __parse_navigation6e76bcc4f3f9404c3a059d6a7c917d41($menus); else: ?>
+    <?php echo __parse_navigationf78030d7e7044ccdb35e4f122e11654b($menus); else: ?>
     < id="main-navigation" class="nav navbar-nav navbar-nav-custom">
-        <?php echo __parse_navigation6e76bcc4f3f9404c3a059d6a7c917d41($menus); ?>
+        <?php echo __parse_navigationf78030d7e7044ccdb35e4f122e11654b($menus); ?>
     </>
 <?php endif; ?>
 
@@ -283,7 +283,7 @@ if(count($__SLIDE_ITEMS__) == 0): ?>
         <?php 
             $features_count = count($widget['vars']['features']);
             $rows = ceil($features_count/3);
-         $__FOR_START_11254__=1;$__FOR_END_11254__=$rows;for($row=$__FOR_START_11254__;$row <= $__FOR_END_11254__;$row+=1){ 
+         $__FOR_START_14990__=1;$__FOR_END_14990__=$rows;for($row=$__FOR_START_14990__;$row <= $__FOR_END_14990__;$row+=1){ 
                 $first_row = ($row-1)*3;
                 $features = array_slice($widget['vars']['features'],$first_row,3);
              ?>
@@ -369,7 +369,7 @@ $__PAGE_VAR_NAME__ = isset($articles_data['page'])?$articles_data['page']:'';
 <hr>
 <div id="footer">
     <?php 
-    \think\Hook::listen('footer_start',$temp5ad803d898a71,null,false);
+    \think\Hook::listen('footer_start',$temp5ad9742946836,null,false);
  ?>
     <div class="links">
         <?php
@@ -497,7 +497,7 @@ if(is_array($__LINKS__) || $__LINKS__ instanceof \think\Collection || $__LINKS__
     });
 </script>
 <?php 
-    \think\Hook::listen('before_body_end',$temp5ad803d898a71,null,false);
+    \think\Hook::listen('before_body_end',$temp5ad9742946836,null,false);
  ?>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:70:"C:\wwwroot\htdocs\thinkcmf\public/plugins/system_info/view/widget.html";i:1516676889;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:70:"C:\wwwroot\htdocs\thinkcmf\public/plugins/system_info/view/widget.html";i:1524145168;}*/ ?>
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title"><?php echo lang('SYSTEM_INFORMATIONS'); ?></h3>

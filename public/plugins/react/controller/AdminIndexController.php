@@ -66,28 +66,10 @@ class AdminIndexController extends PluginAdminBaseController
         $alldata = Db::name("reactvue")->limit(0, 10)->select();
         //print_r($alldata);
         $outputform="<template>\n";
-
         $formtype="";
         //print_r($alldata[0]['rid']);
         $len=count($alldata);
-        /*for ($i=0; $i <$len; $i++) { 
-            //print_r($alldata[$i]);
-            print_r($alldata[$i]['name_en']);
-            foreach ($alldata[$i] as $key => $value) {
-                echo $key.':'.$value.'<br>';
-                if($key=='formtype' && $alldata[$i]['formtype']==0){
-                    //print_r('song-');
-                    $outputform.="<FormItem label=\"标题\" prop=\"{$key}\">
-                    <Input v-model=\"formItem.{$key}\" placeholder=\"标题\"></Input>
-                    </FormItem>";
-                }elseif ($key=='formtype' && $alldata[$i]['formtype']==1) {
-                    $outputform.="<FormItem label=\"内容\" prop=\"{$key}\">
-                        <Input v-model=\"formItem.{$key}\" type=\"textarea\" :rows=\"4\" placeholder=\"内容\"></Input>
-                    </FormItem>";
-                }
-            }
-        }*/
-
+        $outputform.="<Form ref=\"formItem\" :model=\"formItem\" :rules=\"ruleValidate\" :label-width=\"80\">\n";
         foreach ($alldata as $key => $value) {
             //print_r($value);
             foreach ($value as $k => $val) {
@@ -115,41 +97,17 @@ class AdminIndexController extends PluginAdminBaseController
                 }
             }
         }
+        $outputform.="</Form>\n";
+        $outputform.="<Table :columns=\"columns1\" :data=\"listData\"></Table>\n";
         //$formtype=$users[0]['formtype'];
-        //print_r(array_keys($users[0]));
-        /*$variable=$users[0];        
-        foreach ($variable as $key => $value) {
-            print_r($key.":".$value);
-            switch ($value) {
-                case 0:
-                    $outputform.="<FormItem label=\"标题\" prop=\"title\">
-                    <Input v-model=\"formItem.title\" placeholder=\"标题\"></Input>
-                    </FormItem>";                
-                    break;
-                default:
-                    $outputform.="<FormItem label=\"内容\" prop=\"content\">
-                            <Input v-model=\"formItem.content\" type=\"textarea\" :rows=\"4\" placeholder=\"内容\"></Input>
-                        </FormItem>";
-                    
-                    break;
-            }
-        }*/
-        
-        /*switch ($formtype) {
-            case 0:
-                $outputform.="<FormItem label=\"标题\" prop=\"title\">
-                <Input v-model=\"formItem.title\" placeholder=\"标题\"></Input>
-                </FormItem>";                
-                break;
-            default:
-                $outputform.="<FormItem label=\"内容\" prop=\"content\">
-                        <Input v-model=\"formItem.content\" type=\"textarea\" :rows=\"4\" placeholder=\"内容\"></Input>
-                    </FormItem>";
-                
-                break;
-        }*/
+        //print_r(array_keys($users[0]));        
+
         $outputform.="</template>\n";
         $outputform.="<script>";
+        $vuedata="";
+        foreach ($alldata as $key => $value) {            
+                $vuedata.="{$value['name_en']}:'',//{$value['name_zh']}\n";            
+        }    
         $outputform.="
             import './index.css';
             import sysbinVerification from '../lib/verification';
@@ -158,7 +116,10 @@ class AdminIndexController extends PluginAdminBaseController
             export default {
                 props:['obserable'],
                 name:'zmitiindex',
-                data(){
+                data(){                    
+                    formItem:{{$vuedata}},
+                    columns1:[],
+                    listData:[]
                 },
                 methods:{
                 },
@@ -169,7 +130,7 @@ class AdminIndexController extends PluginAdminBaseController
         ";
         $outputform.="</script>\n";
         print_r($outputform);
-        //echo file_put_contents("components/notice.vue",$outputform);//createVue
+        echo file_put_contents("components/notice.vue",$outputform);//createVue
         $this->assign("outputform",$outputform);
         $this->assign("formtype",$formtype);
         $this->assign("users", $users);

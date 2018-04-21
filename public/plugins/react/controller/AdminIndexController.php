@@ -8,8 +8,10 @@
 // +----------------------------------------------------------------------
 namespace plugins\react\controller; //Demo插件英文名，改成你的插件英文就行了
 
+use app\admin\model\RouteModel;
 use cmf\controller\PluginAdminBaseController;
 use think\Db;
+use think\url;
 
 class AdminIndexController extends PluginAdminBaseController
 {
@@ -39,11 +41,9 @@ class AdminIndexController extends PluginAdminBaseController
     public function index()
     {
         $users = Db::name("user")->limit(0, 5)->select();
-        //$demos = PluginDemoModel::all();
-
-        
-
+        $filelist = Db::name("reactfilelist")->limit(0, 5)->select();
         $this->assign("users", $users);
+        $this->assign("filelist",$filelist);
         return $this->fetch('/admin_index');
     }
 
@@ -60,11 +60,14 @@ class AdminIndexController extends PluginAdminBaseController
      *     'param'  => ''
      * )
      */
-    public function vue()
+    public function vue($rid)
     {
-        $users = Db::name("reactvue")->where('rid=2')->limit(0, 1)->select();//根据id获取当前数据
-        $alldata = Db::name("reactvue")->limit(0, 10)->select();
-        //print_r($alldata);
+        $users = Db::name("reactvue")->where('rid='.$rid)->select();//根据id获取当前数据
+        $getclass = Db::name("reactfilelist")->where('id='.$rid)->select();
+        $alldata = Db::name("reactvue")->where('fileid='.$rid)->select();
+        $filename=$getclass[0]['filename'];
+        
+        //$getprop=$_SERVER["REQUEST_URI"];
         $outputform="<template>\n";
         $formtype="";
         //print_r($alldata[0]['rid']);
@@ -143,7 +146,7 @@ class AdminIndexController extends PluginAdminBaseController
         ";
         $outputform.="</script>\n";
         print_r($outputform);
-        echo file_put_contents("components/notice.vue",$outputform);//createVue
+        echo file_put_contents("components/{$filename}.vue",$outputform);//createVue
         $this->assign("outputform",$outputform);
         $this->assign("formtype",$formtype);
         $this->assign("users", $users);

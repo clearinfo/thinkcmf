@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:69:"C:\wwwroot\htdocs\thinkcmf\public/plugins/react/view/admin_index.html";i:1524145168;s:69:"C:\wwwroot\htdocs\thinkcmf\public\plugins\react\view\public\head.html";i:1524145168;s:68:"C:\wwwroot\htdocs\thinkcmf\public\plugins\react\view\public\vue.html";i:1524145168;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:69:"C:\wwwroot\htdocs\thinkcmf\public/plugins/react/view/admin_index.html";i:1524298339;s:69:"C:\wwwroot\htdocs\thinkcmf\public\plugins\react\view\public\head.html";i:1524145168;s:68:"C:\wwwroot\htdocs\thinkcmf\public\plugins\react\view\public\vue.html";i:1524145168;}*/ ?>
 <!doctype html>
 <html>
 
@@ -40,7 +40,8 @@
 <body>
     <div class="wrap js-check-wrap">
         <ul class="nav nav-tabs">
-            <li class="active"><a>React后台</a></li>
+            <li class="active"><a href="<?php echo cmf_plugin_url('React://AdminIndex/index'); ?>">应用管理</a></li>
+            <li><a href="<?php echo cmf_plugin_url('React://AdminIndex/filelist'); ?>">添加应用</a></li>
         </ul>
         <div class="common-form">
             <div class="well">
@@ -53,6 +54,36 @@
                 <p>
                     <b>插件模板根目录:</b>/thinkcmf/public/plugins/react/view
                 </p>
+            </div>
+            <div class="table_list">
+                <table width="100%" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th width="80">项目ID</th>
+                            <th>页面名称</th>
+                            <th>文件名称</th>
+                            <th>文件后缀</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if(is_array($filelist) || $filelist instanceof \think\Collection || $filelist instanceof \think\Paginator): if( count($filelist)==0 ) : echo "" ;else: foreach($filelist as $key=>$vo): ?>
+                            <tr>
+                                <td><?php echo $vo['gid']; ?></td>                                
+                                <td><?php echo $vo['descoration']; ?></td>
+                                <td><?php echo $vo['filename']; ?></td>
+                                <td><?php echo $vo['postfixname']; ?></td>
+                                <td>
+                                    <a href="javascript:;">属性管理</a>|
+                                    <a href="javascript:;">应用管理</a>|
+                                    <a href="<?php echo cmf_plugin_url('React://AdminIndex/vue',array('rid'=>$vo['id'],'filename'=>$vo['filename'])); ?>">生成文件</a>|
+                                    <a href="javascript:;">修改</a>|
+                                    <a href="javascript:;" class="js-ajax-delete">删除</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                    </tbody>
+                </table>
             </div>
             <form method="post" class="js-ajax-form" action="#">
                 <div class="table_list">

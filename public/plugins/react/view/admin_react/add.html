@@ -13,9 +13,15 @@
         <li><a href="{:cmf_plugin_url('React://AdminIndex/index')}">React应用管理</a></li>
         <li class="active"><a href="{:cmf_plugin_url('React://AdminIndex/add')}">添加应用</a></li>
     </ul>
-    <form method="post" class="form-horizontal js-ajax-form margin-top-20"
+    <form method="get" class="form-horizontal js-ajax-form margin-top-20"
           action="{:cmf_plugin_url('React://AdminIndex/addPost')}">
 
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>上级文件</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="fileid" value="">
+            </div>
+        </div>
         <div class="form-group">
             <label class="col-sm-2 control-label"><span class="form-required">*</span>英文名称</label>
             <div class="col-md-6 col-sm-10">
@@ -52,6 +58,12 @@
                         <input type="text" name="values" value="1">
                     
                 </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>单元格宽度</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="width" value="">
             </div>
         </div>
 

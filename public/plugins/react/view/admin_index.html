@@ -12,7 +12,8 @@
 <body>
     <div class="wrap js-check-wrap">
         <ul class="nav nav-tabs">
-            <li class="active"><a>React后台</a></li>
+            <li class="active"><a href="{:cmf_plugin_url('React://AdminIndex/index')}">应用管理</a></li>
+            <li><a href="{:cmf_plugin_url('React://AdminIndex/filelist')}">添加应用</a></li>
         </ul>
         <div class="common-form">
             <div class="well">
@@ -25,6 +26,36 @@
                 <p>
                     <b>插件模板根目录:</b>__PLUGIN_TMPL__
                 </p>
+            </div>
+            <div class="table_list">
+                <table width="100%" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th width="80">项目ID</th>
+                            <th>页面名称</th>
+                            <th>文件名称</th>
+                            <th>文件后缀</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <foreach name="filelist" item="vo">
+                            <tr>
+                                <td>{$vo.gid}</td>                                
+                                <td>{$vo.descoration}</td>
+                                <td>{$vo.filename}</td>
+                                <td>{$vo.postfixname}</td>
+                                <td>
+                                    <a href="javascript:;">属性管理</a>|
+                                    <a href="javascript:;">应用管理</a>|
+                                    <a href="{:cmf_plugin_url('React://AdminIndex/vue',array('rid'=>$vo['id'],'filename'=>$vo['filename']))}">生成文件</a>|
+                                    <a href="javascript:;">修改</a>|
+                                    <a href="javascript:;" class="js-ajax-delete">删除</a>
+                                </td>
+                            </tr>
+                        </foreach>
+                    </tbody>
+                </table>
             </div>
             <form method="post" class="js-ajax-form" action="#">
                 <div class="table_list">

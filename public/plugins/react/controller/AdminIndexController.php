@@ -60,6 +60,19 @@ class AdminIndexController extends PluginAdminBaseController
      *     'param'  => ''
      * )
      */
+    public function prop($rid)
+    {
+    	$alldata = Db::name("reactvue")->where('fileid='.$rid)->select();
+    	$getclass = Db::name("reactfilelist")->where('id='.$rid)->select();
+    	$filename=$getclass[0]['filename'];
+    	$descoration=$getclass[0]['descoration'];
+    	$postfixname=$getclass[0]['postfixname'];
+    	$this->assign("descoration",$descoration);
+    	$this->assign("postfixname",$postfixname);
+    	$this->assign("filename",$filename);
+    	$this->assign("alldata", $alldata);
+    	return $this->fetch('/admin_react/prop');
+    }
     public function vue($rid)
     {
         $users = Db::name("reactvue")->where('rid='.$rid)->select();//根据id获取当前数据

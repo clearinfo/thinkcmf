@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:69:"C:\wwwroot\htdocs\thinkcmf\public/plugins/react/view/admin_index.html";i:1524298339;s:69:"C:\wwwroot\htdocs\thinkcmf\public\plugins\react\view\public\head.html";i:1524145168;s:68:"C:\wwwroot\htdocs\thinkcmf\public\plugins\react\view\public\vue.html";i:1524145168;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:69:"C:\wwwroot\htdocs\thinkcmf\public/plugins/react/view/admin_index.html";i:1524314747;s:69:"C:\wwwroot\htdocs\thinkcmf\public\plugins\react\view\public\head.html";i:1524145168;s:68:"C:\wwwroot\htdocs\thinkcmf\public\plugins\react\view\public\vue.html";i:1524145168;}*/ ?>
 <!doctype html>
 <html>
 
@@ -74,7 +74,7 @@
                                 <td><?php echo $vo['filename']; ?></td>
                                 <td><?php echo $vo['postfixname']; ?></td>
                                 <td>
-                                    <a href="javascript:;">属性管理</a>|
+                                    <a href="<?php echo cmf_plugin_url('React://AdminIndex/prop',array('rid'=>$vo['id'],'filename'=>$vo['filename'])); ?>">属性管理</a>|
                                     <a href="javascript:;">应用管理</a>|
                                     <a href="<?php echo cmf_plugin_url('React://AdminIndex/vue',array('rid'=>$vo['id'],'filename'=>$vo['filename'])); ?>">生成文件</a>|
                                     <a href="javascript:;">修改</a>|

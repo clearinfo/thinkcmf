@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+<head>
+    <include file="public/head"/>
+    <title>Vue</title>
+    <meta name="description" content="ThinkCMF插件演示首页">
+    <meta name="keywords" content="ThinkCMF插件演示首页">
+    <include file="public/vue"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:cmf_plugin_url('React://AdminIndex/index')}">应用管理</a></li>
+        <li class="active"><a href="{:cmf_plugin_url('React://AdminIndex/add')}">添加应用</a></li>
+    </ul>
+    <div>当前文件：{$descoration}({$filename}{$postfixname})</div>
+    <div class="table_list">
+        <table width="100%" class="table table-hover">
+            <thead>
+                <tr>
+                    <th width="120">字段名称</th>
+                    <th>中文名称</th>
+                    <th>输入类型</th>
+                    <th>数值类型</th>
+                    <th>是否显示</th>
+                    <th>宽度</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+        
+            <tbody>
+                <foreach name="alldata" item="vo">
+                <tr>
+                    <td>{$vo.name_en}</td>
+                    <td>{$vo.name_zh}</td>
+                    <td>{$vo.formtype}</td>
+                    <td>{$vo.valtype}</td>
+                    <td>{$vo.istable}</td>
+                    <td>{$vo.width}</td>
+                    <td>
+                        <a href="javascript:;">修改</a>|
+                        <a href="javascript:;" class="js-ajax-delete">删除</a>
+                    </td>              
+                </tr>
+                </foreach>
+            </tbody>
+        </table>
+    </div>
+    <div id="app">
+        <i-button type="primary" @click="add">创建属性</i-button>
+        <p>&nbsp;</p>
+        <i-form ref="formInline" :model="formItem" :label-width="80">                    
+            <form-item label="参数名称">
+                <i-input v-model="formItem.name_en" name="name_en" placeholder="以字母开头"></i-input>
+            </form-item>
+            <form-item label="参数备注">
+                <i-input v-model="formItem.name_zh" placeholder="中文名称，用于注释和表单名称"></i-input>
+            </form-item>
+            <form-item label="输入类型">
+                <i-select v-model="formItem.formtype" name="formtype">
+                    <i-option v-for="item in formtypeData" :value="item.value">{{item.label}}</i-option>
+                </i-select>
+            </form-item>
+            <form-item label="数值类型">
+                <i-select v-model="formItem.valtype" name="valtype">
+                    <i-option v-for="item in valueData" :value="item.value">{{item.label}}</i-option>
+                </i-select>
+            </form-item>
+            <form-item label="默认数值">
+                <i-input v-model="formItem.values" name="values" placeholder="默认为空"></i-input>
+            </form-item>
+            <form-item label="是否显示">
+                <i-input v-model="formItem.istable" name="istable" placeholder="默认为空" :value="1"></i-input>
+            </form-item>
+            <form-item label="宽度">
+                <i-input v-model="formItem.width" name="width" placeholder="默认为空"></i-input>
+            </form-item>                    
+            <form-item>                        
+                <input type="button" class="ivu-btn ivu-btn-submit" @click="handleSubmit('formInline')" value="提交">
+            </form-item>
+        </i-form>
+    </div>
+    <form method="get" class="form-horizontal js-ajax-form margin-top-20"
+          action="{:cmf_plugin_url('React://AdminIndex/addPost')}">
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>上级文件</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="fileid" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>英文名称</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="name_en" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>中文名称</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="name_zh" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>formtype</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="formtype" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">valtype</label>
+            <div class="col-md-6 col-sm-10">
+                <div class="">
+                    
+                        <input type="text" name="valtype" value="1">
+                   
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">values</label>
+            <div class="col-md-6 col-sm-10">
+                <div class="">
+                    
+                        <input type="text" name="values" value="1">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>单元格宽度</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="width" value="">
+            </div>
+        </div>
+
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary js-ajax-submit">{:lang("SAVE")}</button>
+        </div>
+    </form>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            visible: false,
+            valueData: [{
+                label: "字符型",
+                value: "0"
+            }, {
+                label: "数组型",
+                value: "1"
+            }, {
+                label: "布尔型",
+                value: "2"
+            }],
+            formtypeData: [{
+                label: "输入框",
+                value: "0"
+            }, {
+                label: "单选",
+                value: "1"
+            }, {
+                label: "多选",
+                value: "2"
+            }, {
+                label: "开关",
+                value: "3"
+            }, {
+                label: "选择器",
+                value: "4"
+            }, {
+                label: "日期选择器",
+                value: "5"
+            }, {
+                label: "上传",
+                value: "6"
+            }],
+            formItem: {
+                name_en: '',
+                name_zh: '',
+                formtype: '0',
+                valtype: '0',
+                values: '',
+                
+            }
+        },
+        methods: {
+            show: function() {
+                this.visible = true;
+            },
+            add:function(){
+                window.location.href='add.html'
+            },
+            handleSubmit(name) {
+                var s = this;
+                console.log("test",this.formItem)
+                this.$refs[name].validate((valid) => {
+                    if (valid) {
+                        this.$Message.success('Success!');
+                    } else {
+                        this.$Message.error('Fail!');
+                    }
+                })
+                axios({
+                    method:'get',
+                    url:'{:cmf_plugin_url('React://AdminIndex/addPost')}',
+                    params:{
+                        name_en: s.formItem.name_en,
+                        name_zh: s.formItem.name_zh,
+                        formtype: s.formItem.formtype,
+                        valtype: s.formItem.valtype,
+                        values: s.formItem.values,
+                    }
+                }).then(function(resp){
+                    console.log(resp.data);
+                }).catch(resp => {
+                    console.log('请求失败：'+resp.status+','+resp.statusText);
+                });
+
+            }
+        }
+    })
+    </script>
+</body>
+</html>

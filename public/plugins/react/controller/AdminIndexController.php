@@ -107,7 +107,17 @@ class AdminIndexController extends PluginAdminBaseController
         $vuedata="";
         foreach ($alldata as $key => $value) {            
                 $vuedata.="{$value['name_en']}:'',//{$value['name_zh']}\n";            
-        }    
+        }
+        $vuetd="";
+        foreach ($alldata as $key => $value) { 
+                $vuetd.="{"; 
+                $vuetd.="title:'{$value['name_zh']}',\n"; 
+                $vuetd.="key:'{$value['name_en']}',\n"; 
+                if(!empty($value['width'])){
+                    $vuetd.="width:'{$value['width']}',\n";
+                };                  
+                $vuetd.="},";          
+        }
         $outputform.="
             import './index.css';
             import sysbinVerification from '../lib/verification';
@@ -118,7 +128,7 @@ class AdminIndexController extends PluginAdminBaseController
                 name:'zmitiindex',
                 data(){                    
                     formItem:{{$vuedata}},
-                    columns1:[],
+                    columns1:[{$vuetd}],
                     listData:[]
                 },
                 methods:{

@@ -3,19 +3,19 @@
 <FormItem label="名称" prop="title">
     <DatePicker type="date" multiple placeholder="Select date" style="width: 300px"></DatePicker>
     </FormItem>
-<FormItem label="名称2" prop="title2">
+<FormItem label="摘要" prop="descoration">
     <DatePicker type="date" multiple placeholder="Select date" style="width: 300px"></DatePicker>
     </FormItem>
-<FormItem label="名称3" prop="title3">
-    <Input v-model="formItem.title3" placeholder="标题"></Input>
+<FormItem label="文号" prop="wenhao">
+    <Input v-model="formItem.wenhao" placeholder="标题"></Input>
     </FormItem>
-<FormItem label="名称4" prop="title4">
-    <Input v-model="formItem.title4" placeholder="标题"></Input>
+<FormItem label="推荐" prop="tuijian">
+    <Input v-model="formItem.tuijian" placeholder="标题"></Input>
     </FormItem>
-<FormItem label="zzzzzzzzzzzzz" prop="ttttttttttt">
-    <Input v-model="formItem.ttttttttttt" type="textarea" :rows="4"></Input>
+<FormItem label="图片" prop="picurl">
+    <Input v-model="formItem.picurl" type="textarea" :rows="4"></Input>
     </FormItem>
-<FormItem label="gggg" prop="ttt">
+<FormItem label="内容" prop="content">
     <DatePicker type="date" multiple placeholder="Select date" style="width: 300px"></DatePicker>
     </FormItem>
 </Form>
@@ -31,13 +31,30 @@
                 name:'zmitiindex',
                 data(){                    
                     formItem:{title:'',//名称
-title2:'',//名称2
-title3:'',//名称3
-title4:'',//名称4
-ttttttttttt:'',//zzzzzzzzzzzzz
-ttt:'',//gggg
+descoration:'',//摘要
+wenhao:'',//文号
+tuijian:'',//推荐
+picurl:'',//图片
+content:'',//内容
 },
-                    columns1:[],
+                    columns1:[{title:'名称',
+key:'title',
+width:'100',
+},{title:'摘要',
+key:'descoration',
+width:'120',
+},{title:'文号',
+key:'wenhao',
+width:'150',
+},{title:'推荐',
+key:'tuijian',
+width:'180',
+},{title:'图片',
+key:'picurl',
+width:'200',
+},{title:'内容',
+key:'content',
+},],
                     listData:[]
                 },
                 methods:{

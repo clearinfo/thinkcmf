@@ -29,15 +29,17 @@
             export default {
                 props:['obserable'],
                 name:'zmitiindex',
-                data(){                    
-                    formItem:{title:'',//名称
+                data(){
+                    return {
+                        currentIndex:'',                   
+                        formItem:{title:'',//名称
 descoration:'',//摘要
 wenhao:'',//文号
 tuijian:'',//推荐
 picurl:'',//图片
 content:'',//内容
 },
-                    columns1:[{title:'名称',
+                        columns1:[{title:'名称',
 key:'title',
 width:'100',
 },{title:'摘要',
@@ -55,7 +57,8 @@ width:'200',
 },{title:'内容',
 key:'content',
 },],
-                    listData:[]
+                        listData:[]
+                   }
                 },
                 methods:{
                 },

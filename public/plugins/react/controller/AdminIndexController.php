@@ -126,10 +126,13 @@ class AdminIndexController extends PluginAdminBaseController
             export default {
                 props:['obserable'],
                 name:'zmitiindex',
-                data(){                    
-                    formItem:{{$vuedata}},
-                    columns1:[{$vuetd}],
-                    listData:[]
+                data(){
+                    return {
+                        currentIndex:'',                   
+                        formItem:{{$vuedata}},
+                        columns1:[{$vuetd}],
+                        listData:[]
+                   }
                 },
                 methods:{
                 },
@@ -147,7 +150,7 @@ class AdminIndexController extends PluginAdminBaseController
 
         return $this->fetch('/admin_react/vue');
     }
-    /*添加页*/
+    /*添加input*/
     public function add()
     {
         $users = Db::name("reactvue")->limit(0, 5)->select();
@@ -172,6 +175,25 @@ class AdminIndexController extends PluginAdminBaseController
         Db::name('reactvue')->insert($data);
         //$this->success('添加成功！');
         $this->success('添加成功！', cmf_plugin_url('React://AdminIndex/index'));
+
+
+    }
+    /*添加项目文件*/
+    public function filelist()
+    {
+        $users = Db::name("user")->limit(0, 5)->select();
+        //$this->assign("users", $users);
+        return $this->fetch('/admin_react/filelist');
+    }
+    public function addfile()
+    {
+        $data = $this->request->get();//默认param,可选get,post
+        print_r($data);
+        //$user = ['name_en'=>'title','name_zh'=>'名称2','formtype'=>1,'valtype'=>1,'values'=>'myname'];
+        //Db::name('reactvue')->insert($user);
+        Db::name('reactfilelist')->insert($data);
+        $this->success('添加成功！');
+        //$this->success('添加成功！', cmf_plugin_url('React://AdminIndex/index'));
 
 
     }

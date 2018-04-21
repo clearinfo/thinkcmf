@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <include file="public/head"/>
+    <title>React文件列表页</title>
+    <meta name="description" content="ThinkCMF插件演示首页">
+    <meta name="keywords" content="ThinkCMF插件演示首页">
+    <include file="public/vue"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:cmf_plugin_url('React://AdminIndex/index')}">React应用管理</a></li>
+        <li class="active"><a href="{:cmf_plugin_url('React://AdminIndex/add')}">添加应用</a></li>
+    </ul>
+    <form method="get" class="form-horizontal js-ajax-form margin-top-20"
+          action="{:cmf_plugin_url('React://AdminIndex/addfile')}">
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>所属项目</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="gid" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>文件名</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="filename" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>中文名称</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="descoration" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>文件后缀</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="postfixname" value=".vue">
+            </div>
+        </div>
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary js-ajax-submit">{:lang("SAVE")}</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

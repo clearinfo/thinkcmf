@@ -181,19 +181,19 @@ class AdminIndexController extends PluginAdminBaseController
     public function addPost($fileid)
     {
         $data = $this->request->get();//默认param,可选get,post
+        /*验证*/
+        /*$result = $this->validate($data, "AdminReact");
+        if ($result !== true) {
+            $this->error($result);
+        }*/
         Db::name('reactvue')->insert($data);
         $backdata=[];
-        $backdata['status']='0';
+        $backdata['status']='0';        
+        //$alldata = Db::name("reactvue")->where('fileid='.$fileid)->select();
+        //$backdata['list']=$alldata;
         $backdata['msg']="提交成功";
         print_r(json_encode($backdata));
-    }
-    public function editPost($rid){
-        $data = $this->request->get();
-        Db::name('reactvue')->where('rid'.$rid)->update($data);
-        $backdata=[];
-        $backdata['status']='0';
-        $backdata['msg']="修改成功";
-        print_r(json_encode($backdata));
+        //$this->success('添加成功！', cmf_plugin_url('React://AdminIndex/index'));
     }
     public function getlistdata($fileid)
     {

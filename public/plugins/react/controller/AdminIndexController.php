@@ -189,7 +189,7 @@ class AdminIndexController extends PluginAdminBaseController
     }
     public function editPost($rid){
         $data = $this->request->get();
-        Db::name('reactvue')->where('rid'.$rid)->update($data);
+        Db::name('reactvue')->where('rid', $rid)->update($data);
         $backdata=[];
         $backdata['status']='0';
         $backdata['msg']="修改成功";

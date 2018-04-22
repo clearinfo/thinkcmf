@@ -177,7 +177,7 @@ class AdminIndexController extends PluginAdminBaseController
         //$this->assign("users", $users);
         return $this->fetch('/admin_react/add');
     }
-    public function addPost()
+    public function addPost($fileid)
     {
         $data = $this->request->get();//默认param,可选get,post
         /*验证*/
@@ -185,11 +185,13 @@ class AdminIndexController extends PluginAdminBaseController
         if ($result !== true) {
             $this->error($result);
         }*/
-        print_r($data);
-
         Db::name('reactvue')->insert($data);
-        //$this->success('添加成功！');
-        $this->success('添加成功！', cmf_plugin_url('React://AdminIndex/index'));
+        $backdata=[];
+        $backdata['status']='0';        
+        $alldata = Db::name("reactvue")->where('fileid='.$fileid)->select();
+        $backdata['list']=$alldata;
+        print_r(json_encode($backdata));
+        //$this->success('添加成功！', cmf_plugin_url('React://AdminIndex/index'));
 
 
     }

@@ -50,6 +50,9 @@
         <i-button type="primary" @click="add">创建属性</i-button>
         <p>&nbsp;</p>
         <i-form ref="formInline" :model="formItem" :label-width="80">                    
+            <form-item label="上级文件">
+                <i-input v-model="formItem.fileid" name="fileid" placeholder=""></i-input>
+            </form-item>
             <form-item label="参数名称">
                 <i-input v-model="formItem.name_en" name="name_en" placeholder="以字母开头"></i-input>
             </form-item>
@@ -194,7 +197,7 @@
             },
             handleSubmit(name) {
                 var s = this;
-                console.log("test",this.formItem)
+                //console.log("test",this.formItem)
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         this.$Message.success('Success!');

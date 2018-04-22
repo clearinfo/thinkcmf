@@ -189,8 +189,9 @@ class AdminIndexController extends PluginAdminBaseController
         Db::name('reactvue')->insert($data);
         $backdata=[];
         $backdata['status']='0';        
-        $alldata = Db::name("reactvue")->where('fileid='.$fileid)->select();
-        $backdata['list']=$alldata;
+        //$alldata = Db::name("reactvue")->where('fileid='.$fileid)->select();
+        //$backdata['list']=$alldata;
+        $backdata['msg']="提交成功";
         print_r(json_encode($backdata));
         //$this->success('添加成功！', cmf_plugin_url('React://AdminIndex/index'));
     }

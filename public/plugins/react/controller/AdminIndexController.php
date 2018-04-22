@@ -71,6 +71,7 @@ class AdminIndexController extends PluginAdminBaseController
     	$this->assign("postfixname",$postfixname);
     	$this->assign("filename",$filename);
     	$this->assign("alldata", $alldata);
+        $this->assign("rid",$rid);
     	return $this->fetch('/admin_react/prop');
     }
     public function vue($rid)
@@ -192,8 +193,16 @@ class AdminIndexController extends PluginAdminBaseController
         $backdata['list']=$alldata;
         print_r(json_encode($backdata));
         //$this->success('添加成功！', cmf_plugin_url('React://AdminIndex/index'));
-
-
+    }
+    public function getlistdata($fileid)
+    {
+        $alldata = Db::name("reactvue")->where('fileid='.$fileid)->select();
+        $backdata=[];
+        $backdata['status']='0';
+        $backdata['list']=$alldata;
+        $listdata=json_encode($backdata);
+        print_r($listdata);
+        $this->assign("listdata",$listdata);
     }
     /*添加项目文件*/
     public function filelist()

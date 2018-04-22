@@ -48,7 +48,8 @@
     </div>
     <div id="app">
         <i-button type="primary" @click="add">创建属性</i-button>
-        <p>&nbsp;</p>
+        <p>&nbsp;{$rid}-<span>{{msg}}</span></p>
+        <i-table border :columns="columns7" :data="data6"></i-table>
         <i-form ref="formInline" :model="formItem" :label-width="80">                    
             <form-item label="上级文件">
                 <i-input v-model="formItem.fileid" name="fileid" placeholder=""></i-input>
@@ -147,6 +148,7 @@
         el: '#app',
         data: {
             visible: false,
+            msg:"加载前",
             valueData: [{
                 label: "字符型",
                 value: "0"
@@ -184,9 +186,79 @@
                 name_zh: '',
                 formtype: '0',
                 valtype: '0',
-                values: '',
-                
-            }
+                values: '',                
+            },
+                columns7: [
+                    {
+                        title: '参数名',
+                        key: 'name_en',
+                    },
+                    {
+                        title: '中文名称',
+                        key: 'name_zh'
+                    },
+                    {
+                        title: 'Address',
+                        key: 'address'
+                    },
+                    {
+                        title: 'Action',
+                        key: 'action',
+                        width: 150,
+                        align: 'center',
+                        render: (h, params) => {
+                            return h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small'
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.show(params.index)
+                                        }
+                                    }
+                                }, 'View'),
+                                h('Button', {
+                                    props: {
+                                        type: 'error',
+                                        size: 'small'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.remove(params.index)
+                                        }
+                                    }
+                                }, 'Delete')
+                            ]);
+                        }
+                    }
+                ],
+                data6: [
+                    {
+                        name_en: 'John Brown',
+                        age: 18,
+                        address: 'New York No. 1 Lake Park'
+                    },
+                    {
+                        name_en: 'Jim Green',
+                        age: 24,
+                        address: 'London No. 1 Lake Park'
+                    },
+                    {
+                        name_en: 'Joe Black',
+                        age: 30,
+                        address: 'Sydney No. 1 Lake Park'
+                    },
+                    {
+                        name_en: 'Jon Snow',
+                        age: 26,
+                        address: 'Ottawa No. 2 Lake Park'
+                    }
+                ]
         },
         methods: {
             show: function() {
@@ -223,8 +295,27 @@
                 }).catch(resp => {
                     console.log('请求失败：'+resp.status+','+resp.statusText);
                 });
-
+            },
+            getlistData(rid){
+                var s = this;
+                axios({
+                    method:'get',
+                    url:'{:cmf_plugin_url('React://AdminIndex/getlistdata')}',
+                    params:{
+                        fileid: rid,
+                    }
+                }).then(function(resp){
+                    //console.log(resp.data);
+                    s.data6=resp.data.list;                    
+                }).catch(resp => {
+                    console.log('请求失败：'+resp.status+','+resp.statusText);
+                });
+                //this.data6=newdata;
+                
             }
+        },
+        mounted(){//页面加载完成后显示
+            this.getlistData({$rid});            
         }
     })
     </script>

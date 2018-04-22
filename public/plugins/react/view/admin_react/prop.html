@@ -206,11 +206,14 @@
                     method:'get',
                     url:'{:cmf_plugin_url('React://AdminIndex/addPost')}',
                     params:{
+                        fileid: s.formItem.fileid,
                         name_en: s.formItem.name_en,
                         name_zh: s.formItem.name_zh,
                         formtype: s.formItem.formtype,
                         valtype: s.formItem.valtype,
                         values: s.formItem.values,
+                        istable: s.formItem.istable,
+                        width: s.formItem.width,
                     }
                 }).then(function(resp){
                     console.log(resp.data);

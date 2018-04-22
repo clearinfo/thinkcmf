@@ -186,8 +186,7 @@ class AdminIndexController extends PluginAdminBaseController
             $this->error($result);
         }*/
         print_r($data);
-        //$user = ['name_en'=>'title','name_zh'=>'名称2','formtype'=>1,'valtype'=>1,'values'=>'myname'];
-        //Db::name('reactvue')->insert($user);
+
         Db::name('reactvue')->insert($data);
         //$this->success('添加成功！');
         $this->success('添加成功！', cmf_plugin_url('React://AdminIndex/index'));

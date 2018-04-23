@@ -42,6 +42,8 @@ class AdminIndexController extends PluginAdminBaseController
     {
         $users = Db::name("user")->limit(0, 5)->select();
         $filelist = Db::name("reactfilelist")->limit(0, 5)->select();
+        $alltype=Db::field('group.id,group.names')->table('cmf_reactgroup group')->limit(100)->select();
+        $this->assign("alltype", $alltype);
         $this->assign("users", $users);
         $this->assign("filelist",$filelist);
         return $this->fetch('/admin_index');
@@ -78,6 +80,31 @@ class AdminIndexController extends PluginAdminBaseController
     {
         $alldata = Db::name("reactvue")->where('fileid='.$rid)->select();
         $getclass = Db::name("reactfilelist")->where('id='.$rid)->select();
+        $getapptype = Db::name("reactapp")->where('fileid='.$rid)->select();
+        $appmethods="";
+        foreach ($getapptype as $key => $value) {
+            $appmethods.="{$value['name_en']}";
+            $appmethods.="({$value['attrid']}){\n";
+            $appmethods.="var s=this;";
+            $appmethods.="var sendurl=\"{$value['apiurl']}\";";
+                $appmethods.="symbinUtil.ajax({
+                    url:sendurl,
+                    validate:s.validateData,
+                    data:formparams,\n";
+                    $appmethods.=htmlentities("fn(data){\n");
+                        $appmethods.=htmlentities("if(data.getret === 0){\n"); 
+                            $appmethods.="s.\$Message.success(data.getmsg);\n";
+                            $appmethods.="s.getListData();\n";
+                        $appmethods.=htmlentities("}else{\n");
+                            $appmethods.="s.Message.error({\n";
+                                $appmethods.="content:data.getmsg,\n";
+                                $appmethods.="duration: 10\n";
+                            $appmethods.="});\n";
+                        $appmethods.=htmlentities("}\n");                            
+                    $appmethods.=htmlentities("}\n");
+            $appmethods.="\n},\n";
+        }
+ 
         $filename=$getclass[0]['filename'];
         $descoration=$getclass[0]['descoration'];
         $postfixname=$getclass[0]['postfixname'];
@@ -93,6 +120,7 @@ class AdminIndexController extends PluginAdminBaseController
         $users = Db::name("reactvue")->where('rid='.$rid)->select();//根据id获取当前数据
         $getclass = Db::name("reactfilelist")->where('id='.$rid)->select();
         $alldata = Db::name("reactvue")->where('fileid='.$rid)->select();
+        $getapptype = Db::name("reactapp")->where('fileid='.$rid)->select();
         $filename=$getclass[0]['filename'];
         
         //$getprop=$_SERVER["REQUEST_URI"];
@@ -162,14 +190,35 @@ class AdminIndexController extends PluginAdminBaseController
                         columns1:[{$vuetd}],
                         listData:[]
                    }
-                },
-                methods:{
-                },
-                mounted(){//页面加载完成后显示
+                },\n";
+                $outputform.="methods:{\n";
+                foreach ($getapptype as $key => $value) {
+                    $outputform.="{$value['name_en']}";
+                    $outputform.="({$value['attrid']}){\n";
+                    $outputform.="var s=this;";
+                    $outputform.="var sendurl=\"{$value['apiurl']}\";";
+                        $outputform.="symbinUtil.ajax({
+                            url:sendurl,
+                            validate:s.validateData,
+                            data:formparams,\n";
+                            $outputform.=htmlentities("fn(data){\n");
+                                $outputform.=htmlentities("if(data.getret === 0){\n"); 
+                                    $outputform.="s.\$Message.success(data.getmsg);\n";
+                                    $outputform.="s.getListData();\n";
+                                $outputform.=htmlentities("}else{\n");
+                                    $outputform.="s.Message.error({\n";
+                                        $outputform.="content:data.getmsg,\n";
+                                        $outputform.="duration: 10\n";
+                                    $outputform.="});\n";
+                                $outputform.=htmlentities("}\n");                            
+                            $outputform.=htmlentities("}\n");
+                    $outputform.="\n},\n";
+                }
+                $outputform.="},\n";
+                $outputform.="mounted(){\n";
                                
-                },
-            }
-        ";
+                $outputform.="},\n";
+            $outputform.="}\n";
         $outputform.="</script>\n";
         print_r($outputform);
         echo file_put_contents("components/{$filename}.vue",$outputform);//createVue

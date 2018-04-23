@@ -1,2 +1,2 @@
-.gitignore
-runtime/
+*runtime/
+*thinkcmf5.sql

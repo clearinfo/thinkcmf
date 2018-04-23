@@ -127,13 +127,13 @@ class AdminIndexController extends PluginAdminBaseController
         }
         $vuetd="";
         foreach ($alldata as $key => $value) { 
+            if($value['istable']>0){
                 $vuetd.="{"; 
                 $vuetd.="title:'{$value['name_zh']}',\n"; 
-                $vuetd.="key:'{$value['name_en']}',\n"; 
-                if(!empty($value['width'])){
-                    $vuetd.="width:'{$value['width']}',\n";
-                };                  
-                $vuetd.="},";          
+                $vuetd.="key:'{$value['name_en']}',\n";                 
+                $vuetd.="width:'{$value['width']}',\n";                 
+                $vuetd.="},";
+            };       
         }
         $outputform.="
             import './index.css';

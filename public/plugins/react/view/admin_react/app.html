@@ -50,6 +50,7 @@
                 </form-item>
                 <form-item label="是否预加载">
                     <i-input v-model="formItem.loadfun" name="loadfun" :value="1"></i-input>
+                    <div>提示：预加载仅用于获取数据，“添加、删除、修改”时勿选。</div>
                 </form-item>                
             </i-form>
         </Modal>
@@ -119,6 +120,10 @@
                 {
                     title: '公共参数',
                     key: 'pubattr'
+                },
+                {
+                    title: '私有参数',
+                    key: 'prvattr'
                 },
                 {
                     title: '传递ID',

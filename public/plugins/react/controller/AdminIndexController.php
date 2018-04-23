@@ -102,9 +102,7 @@ class AdminIndexController extends PluginAdminBaseController
         $len=count($alldata);
         $outputform.="<Form ref=\"formItem\" :model=\"formItem\" :rules=\"ruleValidate\" :label-width=\"80\">\n";
         foreach ($alldata as $key => $value) {
-            //print_r($value);
             foreach ($value as $k => $val) {
-                //print_r($k.':'.$val);
                 switch ($k) {
                     case 'formtype':
                         if ($val==0) {

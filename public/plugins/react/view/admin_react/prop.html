@@ -161,7 +161,7 @@
                                 },
                                 on: {
                                     click: () => {
-                                        that.remove(params.index)
+                                        that.remove(params.row.rid)
                                     }
                                 }
                             }, '删除')
@@ -246,6 +246,23 @@
                 }).then(function(resp){
                     console.log(resp.data);
                     s.modal1=false;
+                    s.$Message.success(resp.data.msg);
+                    s.getlistData({$rid});
+                }).catch(resp => {
+                    console.log('请求失败：'+resp.status+','+resp.statusText);
+                });
+            },
+            remove:function(rid){
+                var s = this;
+                var sendurl="{:cmf_plugin_url('React://AdminIndex/delPost')}";
+                axios({
+                    method:'get',
+                    url:sendurl,
+                    params:{
+                        rid:rid
+                    }
+                }).then(function(resp){
+                    console.log(resp.data);
                     s.$Message.success(resp.data.msg);
                     s.getlistData({$rid});
                 }).catch(resp => {

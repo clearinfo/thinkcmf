@@ -195,6 +195,14 @@ class AdminIndexController extends PluginAdminBaseController
         $backdata['msg']="修改成功";
         print_r(json_encode($backdata));
     }
+    public function delPost($rid){
+        $data = $this->request->get();
+        Db::name('reactvue')->where('rid', $rid)->delete($data);
+        $backdata=[];
+        $backdata['status']='0';
+        $backdata['msg']="删除成功";
+        print_r(json_encode($backdata));
+    }
     public function getlistdata($fileid)
     {
         $alldata = Db::name("reactvue")->where('fileid='.$fileid)->select();

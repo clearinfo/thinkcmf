@@ -74,6 +74,20 @@ class AdminIndexController extends PluginAdminBaseController
         $this->assign("rid",$rid);
     	return $this->fetch('/admin_react/prop');
     }
+    public function app($rid)
+    {
+        $alldata = Db::name("reactvue")->where('fileid='.$rid)->select();
+        $getclass = Db::name("reactfilelist")->where('id='.$rid)->select();
+        $filename=$getclass[0]['filename'];
+        $descoration=$getclass[0]['descoration'];
+        $postfixname=$getclass[0]['postfixname'];
+        $this->assign("descoration",$descoration);
+        $this->assign("postfixname",$postfixname);
+        $this->assign("filename",$filename);
+        $this->assign("alldata", $alldata);
+        $this->assign("rid",$rid);
+        return $this->fetch('/admin_react/app');
+    }
     public function vue($rid)
     {
         $users = Db::name("reactvue")->where('rid='.$rid)->select();//根据id获取当前数据
@@ -167,15 +181,46 @@ class AdminIndexController extends PluginAdminBaseController
 
         return $this->fetch('/admin_react/vue');
     }
+    public function addappPost($fileid)
+    {
+        $data = $this->request->get();//默认param,可选get,post
+        Db::name('reactapp')->insert($data);
+        $backdata=[];
+        $backdata['status']='0';
+        $backdata['msg']="提交成功";
+        print_r(json_encode($backdata));
+    }
+    public function editappPost($id){
+        $data = $this->request->get();
+        Db::name('reactapp')->where('id', $id)->update($data);
+        $backdata=[];
+        $backdata['status']='0';
+        $backdata['msg']="修改成功";
+        print_r(json_encode($backdata));
+    }
+    public function delappPost($id){
+        $data = $this->request->get();
+        Db::name('reactapp')->where('id', $id)->delete($data);
+        $backdata=[];
+        $backdata['status']='0';
+        $backdata['msg']="删除成功";
+        print_r(json_encode($backdata));
+    }
+    public function getapplistdata($fileid)
+    {
+        $alldata = Db::name("reactapp")->where('fileid='.$fileid)->select();
+        $backdata=[];
+        $backdata['status']='0';
+        $backdata['list']=$alldata;
+        $listdata=json_encode($backdata);
+        print_r($listdata);
+        $this->assign("listdata",$listdata);
+    }
     /*添加input*/
     public function add()
     {
         $users = Db::name("reactvue")->limit(0, 5)->select();
-        //$demos = PluginDemoModel::all();
-
         print_r($users);
-
-        //$this->assign("users", $users);
         return $this->fetch('/admin_react/add');
     }
     public function addPost($fileid)

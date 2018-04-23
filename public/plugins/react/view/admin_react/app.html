@@ -1,0 +1,342 @@
+<!doctype html>
+<html>
+<head>
+    <include file="public/head"/>
+    <title>应用管理</title>
+    <meta name="description" content="ThinkCMF插件演示首页">
+    <meta name="keywords" content="ThinkCMF插件演示首页">
+    <include file="public/vue"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:cmf_plugin_url('React://AdminIndex/index')}">应用管理</a></li>
+        <li class="active"><a href="{:cmf_plugin_url('React://AdminIndex/add')}">添加应用</a></li>
+    </ul>
+    <div id="app">
+        <div class="ivu-card-head">
+            当前文件：{$descoration}({$filename}{$postfixname})            
+        </div>
+        <i-button type="primary" @click="open">创建应用</i-button>
+        <p>&nbsp;{$rid}-<span>{{msg}}</span></p>
+        <i-table border :columns="columns7" :data="listdata"></i-table>
+        <Modal v-model="modal1" 
+        @on-ok="save"
+        >
+            <i-form ref="formInline" :model="formItem" :label-width="80">
+                <form-item label="所在项目">
+                    <i-input v-model="formItem.classid" name="classid" disabled></i-input>
+                </form-item>
+                <form-item label="所在页面">
+                    <i-input v-model="formItem.fileid" name="fileid" disabled></i-input>
+                </form-item>
+                <form-item label="函数名">
+                    <i-input v-model="formItem.name_en" name="name_en" placeholder="以字母开头"></i-input>
+                </form-item>
+                <form-item label="中文名称">
+                    <i-input v-model="formItem.name_zh" placeholder="中文名称，用于注释"></i-input>
+                </form-item>
+                <form-item label="公共参数">
+                    <i-input v-model="formItem.pubattr" name="pubattr"></i-input>
+                </form-item>
+                <form-item label="私有参数">
+                    <i-input v-model="formItem.prvattr" name="prvattr"></i-input>
+                </form-item>
+                <form-item label="传递ID">
+                    <i-input v-model="formItem.attrid" name="attrid"></i-input>
+                </form-item>
+                <form-item label="接口地址">
+                    <i-input v-model="formItem.apiurl" name="values"></i-input>
+                </form-item>
+                <form-item label="是否预加载">
+                    <i-input v-model="formItem.loadfun" name="loadfun" :value="1"></i-input>
+                </form-item>                
+            </i-form>
+        </Modal>
+    </div>
+
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            visible: false,
+            msg:"加载前",
+            modal1: false,
+            currentIndex:'',
+            valueData: [{
+                label: "字符型",
+                value: "0"
+            }, {
+                label: "数组型",
+                value: "1"
+            }, {
+                label: "布尔型",
+                value: "2"
+            }],
+            formtypeData: [{
+                label: "输入框",
+                value: "0"
+            }, {
+                label: "单选",
+                value: "1"
+            }, {
+                label: "多选",
+                value: "2"
+            }, {
+                label: "开关",
+                value: "3"
+            }, {
+                label: "选择器",
+                value: "4"
+            }, {
+                label: "日期选择器",
+                value: "5"
+            }, {
+                label: "上传",
+                value: "6"
+            }],
+            formItem: {
+                classid:'3',
+                fileid:'{$rid}',
+                name_en: '',
+                name_zh: '',
+                pubattr: '',
+                prvattr: '',
+                attrid: '',
+                apiurl:'1',
+                loadfun:'',            
+            },
+            columns7: [
+                {
+                    title: '应用名称',
+                    key: 'name_en',
+                },
+                {
+                    title: '中文名称',
+                    key: 'name_zh'
+                },
+                {
+                    title: '公共参数',
+                    key: 'pubattr'
+                },
+                {
+                    title: '传递ID',
+                    key: 'attrid'
+                },
+                {
+                    title: '接口地址',
+                    key: 'apiurl'
+                },
+                {
+                    title: '是否预加载',
+                    key: 'loadfun'
+                },
+                {
+                    title: '操作',
+                    key: 'action',
+                    width: 180,
+                    align: 'center',
+                    render: (h, params) => {
+                        
+                        return h('div', [
+                            h('Button', {
+                                props: {
+                                    type: 'text',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    'click': () => {
+                                        that.show(params.row.id);
+                                    }
+                                }
+                            }, '修改'),
+                            h('Button', {
+                                props: {
+                                    type: 'text',
+                                    size: 'small'
+                                },
+                                on: {
+                                    click: () => {
+                                        that.remove(params.row.id)
+                                    }
+                                }
+                            }, '删除')
+                        ]);
+                        
+                    }
+                }
+                ],
+                listdata: []
+        },
+        methods: {
+            show(id) {
+                var s = this;
+                s.modal1=true;
+                s.currentIndex=id;
+                s.listdata.map(function(item, index) {
+                    if(item.id==id){
+                        s.formItem={
+                            id:item.id,
+                            classid:'3',
+                            fileid:'{$rid}',
+                            name_en: item.name_en,
+                            name_zh: item.name_zh,
+                            pubattr: item.pubattr,
+                            prvattr: item.prvattr,
+                            attrid: item.attrid,
+                            apiurl:item.apiurl,
+                            loadfun:item.loadfun,              
+                        }
+                    }                    
+                })
+            },
+            open:function(){
+                var s = this;
+                s.modal1=true;
+                s.formItem={
+                    classid:'3',
+                    fileid:'{$rid}',
+                    name_en: '',
+                    name_zh: '',
+                    pubattr: '',
+                    prvattr: '',
+                    attrid: '',
+                    apiurl:'1',
+                    loadfun:'',            
+                }
+            },
+            edit:function(id){
+                var s = this;
+                /*s.modal1=true;
+                s.currentIndex=rid;
+                s.listdata.map(function(item, index) {
+                    if(item.rid==rid){
+                        //return console.log(item.name_en);
+                        s.formItem={
+                            fileid:'{$rid}',
+                            name_en: item.name_en,
+                            name_zh: item.name_zh,
+                            formtype: String(item.formtype),
+                            valtype: String(item.valtype),
+                            values: item.values,
+                            istable:item.istable,
+                            width:item.width,              
+                        }
+                    }                    
+                })*/
+                //console.log(s.currentIndex);
+                var sendurl="{:cmf_plugin_url('React://AdminIndex/editappPost')}";
+                axios({
+                    method:'get',
+                    url:sendurl,
+                    params:{
+                        id:id,
+                        classid:s.formItem.classid,
+                        fileid: s.formItem.fileid,
+                        name_en: s.formItem.name_en,
+                        name_zh: s.formItem.name_zh,
+                        pubattr: s.formItem.pubattr,
+                        prvattr: s.formItem.prvattr,
+                        attrid: s.formItem.attrid,
+                        apiurl:s.formItem.apiurl,
+                        loadfun:s.formItem.loadfun,
+                    }
+                }).then(function(resp){
+                    console.log(resp.data);
+                    s.modal1=false;
+                    s.$Message.success(resp.data.msg);
+                    s.getlistData({$rid});
+                }).catch(resp => {
+                    console.log('请求失败：'+resp.status+','+resp.statusText);
+                });
+            },
+            remove:function(id){
+                var s = this;
+                var sendurl="{:cmf_plugin_url('React://AdminIndex/delappPost')}";
+                axios({
+                    method:'get',
+                    url:sendurl,
+                    params:{
+                        id:id
+                    }
+                }).then(function(resp){
+                    console.log(resp.data);
+                    s.$Message.success(resp.data.msg);
+                    s.getlistData({$rid});
+                }).catch(resp => {
+                    console.log('请求失败：'+resp.status+','+resp.statusText);
+                });
+            },
+            save:function(){
+                var s = this;
+                if(s.currentIndex!=''){
+                    this.edit(s.currentIndex);
+                }else{
+                    s.handleSubmit('formInline');
+                }
+                this.modal1=false;
+            },
+            handleSubmit(name) {
+                var s = this;
+                s.$refs[name].validate((valid) => {
+                    if (valid) {
+                        s.$Message.success('Success!');
+                    } else {
+                        s.$Message.error('Fail!');
+                    }
+                });
+                var sendurl="{:cmf_plugin_url('React://AdminIndex/addappPost')}";
+                axios({
+                    method:'get',
+                    url:sendurl,
+                    params:{
+                        classid:s.formItem.classid,
+                        fileid:'{$rid}',
+                        name_en: s.formItem.name_en,
+                        name_zh: s.formItem.name_zh,
+                        pubattr: s.formItem.pubattr,
+                        prvattr: s.formItem.prvattr,
+                        attrid: s.formItem.attrid,
+                        apiurl:s.formItem.apiurl,
+                        loadfun:s.formItem.loadfun, 
+                    }
+                }).then(function(resp){
+                    console.log(resp.data);
+                    s.modal1=false;
+                    s.$Message.success(resp.data.msg);
+                    s.getlistData({$rid});
+                }).catch(resp => {
+                    console.log('请求失败：'+resp.status+','+resp.statusText);
+                });
+            },
+            getlistData(rid){
+                var s = this;
+                var sendurl="{:cmf_plugin_url('React://AdminIndex/getapplistdata')}";
+                axios({
+                    method:'get',
+                    url:sendurl,
+                    params:{
+                        fileid: rid,
+                    }
+                }).then(function(resp){
+                    console.log(resp.data.list);
+                    s.listdata=resp.data.list; //更新数据                  
+                }).catch(resp => {
+                    console.log('请求失败：'+resp.status+','+resp.statusText);
+                });                
+            },
+        },
+        mounted(){//页面加载完成后显示
+            this.getlistData({$rid});            
+        },
+        beforeMount(){
+            that = this
+        }
+    })
+    </script>
+</body>
+</html>

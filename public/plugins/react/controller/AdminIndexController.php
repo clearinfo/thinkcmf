@@ -102,7 +102,7 @@ class AdminIndexController extends PluginAdminBaseController
                             $appmethods.="});\n";
                         $appmethods.=htmlentities("}\n");                            
                     $appmethods.=htmlentities("}\n");
-            $appmethods.="\n},\n";
+            $appmethods.="\n}),\n";
         }
  
         $filename=$getclass[0]['filename'];
@@ -195,8 +195,8 @@ class AdminIndexController extends PluginAdminBaseController
                 foreach ($getapptype as $key => $value) {
                     $outputform.="{$value['name_en']}";
                     $outputform.="({$value['attrid']}){\n";
-                    $outputform.="var s=this;";
-                    $outputform.="var sendurl=\"{$value['apiurl']}\";";
+                        $outputform.="var s=this;";
+                        $outputform.="var sendurl=\"{$value['apiurl']}\";";
                         $outputform.="symbinUtil.ajax({
                             url:sendurl,
                             validate:s.validateData,
@@ -212,7 +212,8 @@ class AdminIndexController extends PluginAdminBaseController
                                     $outputform.="});\n";
                                 $outputform.=htmlentities("}\n");                            
                             $outputform.=htmlentities("}\n");
-                    $outputform.="\n},\n";
+                        $outputform.="\n}),\n";
+                    $outputform.="},\n";
                 }
                 $outputform.="},\n";
                 $outputform.="mounted(){\n";

@@ -62,6 +62,7 @@ duration: 10
 }
 }
 
+}),
 },
 edit(rid){
 var s=this;var sendurl="http://www.name.com";symbinUtil.ajax({
@@ -80,6 +81,7 @@ duration: 10
 }
 }
 
+}),
 },
 remove(idx){
 var s=this;var sendurl="https://127.0.0.1/";symbinUtil.ajax({
@@ -98,6 +100,7 @@ duration: 10
 }
 }
 
+}),
 },
 getlistdata(uid){
 var s=this;var sendurl="http://127.0.0.1/alldata";symbinUtil.ajax({
@@ -116,6 +119,7 @@ duration: 10
 }
 }
 
+}),
 },
 getcitydata(){
 var s=this;var sendurl="http://localhost/a.json";symbinUtil.ajax({
@@ -134,6 +138,7 @@ duration: 10
 }
 }
 
+}),
 },
 },
 mounted(){

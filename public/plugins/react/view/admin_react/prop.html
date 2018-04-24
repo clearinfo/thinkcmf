@@ -10,8 +10,8 @@
 <body>
 <div class="wrap js-check-wrap">
     <ul class="nav nav-tabs">
-        <li><a href="{:cmf_plugin_url('React://AdminIndex/index')}">应用管理</a></li>
-        <li class="active"><a href="{:cmf_plugin_url('React://AdminIndex/add')}">添加应用</a></li>
+        <li><a href="{:cmf_plugin_url('React://AdminIndex/index')}">页面管理</a></li>
+        <li class="active"><a href="{:cmf_plugin_url('React://AdminIndex/filelist')}">添加页面</a></li>
     </ul>
     <div id="app">
         <div class="ivu-card-head">
@@ -197,6 +197,7 @@
             open:function(){
                 var s = this;
                 s.modal1=true;
+                s.currentIndex="";
                 s.formItem={
                     fileid:'{$rid}',
                     name_en: '',

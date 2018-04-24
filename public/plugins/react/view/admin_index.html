@@ -30,11 +30,15 @@
 
             <div id="app">
                 <!-- vue -->
+                <i-button type="primary" @click="open">创建模板</i-button>
+                <p>&nbsp;</p>
                 <i-table border :columns="columns7" :data="listdata"></i-table>
                 <!--             
     <Modal v-model="visible" title="Welcome">Welcome to iView</Modal> -->
-                <i-button type="primary" @click="add">创建模板</i-button>
-                <p>&nbsp;</p>
+                <Modal v-model="modal1" 
+                @on-ok="save"
+                >
+                
                 <i-form ref="formInline" :model="formItem" :label-width="80">                    
                     <form-item label="所属项目">                        
                         <i-select v-model="formItem.gid" name="gid">
@@ -51,11 +55,9 @@
                     </form-item>
                     <form-item label="文件后缀">
                         <i-input v-model="formItem.postfixname" name="postfixname"></i-input>
-                    </form-item>                  
-                    <form-item>                        
-                        <input type="button" class="ivu-btn ivu-btn-submit" @click="handleSubmit('formInline')" value="提交">
                     </form-item>
                 </i-form>
+                </Modal>
                 <!-- vue end -->
             </div>
         </div>
@@ -64,7 +66,6 @@
     new Vue({
         el: '#app',
         data: {
-            visible: false,
             modal1: false,
             currentIndex:'',
             valueData: [{
@@ -183,7 +184,7 @@
                                 },
                                 on: {
                                     'click': () => {
-                                        that.show(params.row.rid);
+                                        that.show(params.row.id);
                                     }
                                 }
                             }, '修改'),
@@ -194,7 +195,7 @@
                                 },
                                 on: {
                                     click: () => {
-                                        that.remove(params.row.rid)
+                                        that.remove(params.row.id)
                                     }
                                 }
                             }, '删除')
@@ -205,23 +206,68 @@
                 listdata: []
         },
         methods: {
-            show: function() {
-                this.visible = true;
+            open:function(){
+                var s = this;
+                s.modal1=true;
+                s.currentIndex="";
+                s.formItem={
+                    gid: '',
+                    filename: '',
+                    descoration: '',
+                    postfixname: '.vue',            
+                }
             },
-            add:function(){
-                window.location.href='add.html'
+            show(id) {
+                var s = this;
+                s.modal1=true;
+                s.currentIndex=id;
+                s.listdata.map(function(item, index) {
+                    if(item.id==id){
+                        s.formItem={
+                            id:item.id,
+                            gid: item.gid,
+                            filename: item.filename,
+                            descoration: item.descoration,
+                            postfixname: item.postfixname,             
+                        }
+                    }                    
+                })
+            },
+            edit:function(id){
+                var s = this;
+                var sendurl="{:cmf_plugin_url('React://AdminIndex/editfile')}";
+                axios({
+                    method:'get',
+                    url:sendurl,
+                    params:{
+                        id:s.formItem.id,
+                        gid: s.formItem.gid,
+                        filename: s.formItem.filename,
+                        descoration: s.formItem.descoration,
+                        postfixname: s.formItem.postfixname,
+                    }
+                }).then(function(resp){
+                    console.log(resp.data);
+                    s.modal1=false;
+                    s.$Message.success(resp.data.msg);
+                    s.getlistData();
+                }).catch(resp => {
+                    console.log('请求失败：'+resp.status+','+resp.statusText);
+                });
+            },
+            save:function(){
+                var s = this;
+                if(s.currentIndex!=''){
+                    s.edit(s.currentIndex);
+                }else{
+                    s.handleSubmit('formInline');
+                }
+                s.modal1=false;
             },
             handleSubmit(name) {
                 var s = this;
                 console.log("test",this.formItem);
                 var sendurl="{:cmf_plugin_url('React://AdminIndex/addfile')}";
-                /*this.$refs[name].validate((valid) => {
-                    if (valid) {
-                        this.$Message.success('Success!');
-                    } else {
-                        this.$Message.error('Fail!');
-                    }
-                })*/
                 axios({
                     method:'get',
                     url:sendurl,
@@ -238,6 +284,23 @@
                     console.log('请求失败：'+resp.status+','+resp.statusText);
                 });
 
+            },
+            remove:function(id){
+                var s = this;
+                var sendurl="{:cmf_plugin_url('React://AdminIndex/delfile')}";
+                axios({
+                    method:'get',
+                    url:sendurl,
+                    params:{
+                        id:id
+                    }
+                }).then(function(resp){
+                    console.log(resp.data);
+                    s.$Message.success(resp.data.msg);
+                    s.getlistData();
+                }).catch(resp => {
+                    console.log('请求失败：'+resp.status+','+resp.statusText);
+                });
             },
             getlistData(rid){
                 var s = this;

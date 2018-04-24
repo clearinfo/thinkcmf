@@ -333,5 +333,21 @@ class AdminIndexController extends PluginAdminBaseController
         $backdata['msg']="添加成功";
         print_r(json_encode($backdata));
     }
+    public function editfile($id){
+        $data = $this->request->get();
+        Db::name('reactfilelist')->where('id', $id)->update($data);
+        $backdata=[];
+        $backdata['status']='0';
+        $backdata['msg']="修改成功";
+        print_r(json_encode($backdata));
+    }
+    public function delfile($id){
+        $data = $this->request->get();
+        Db::name('reactfilelist')->where('id', $id)->delete($data);
+        $backdata=[];
+        $backdata['status']='0';
+        $backdata['msg']="删除成功";
+        print_r(json_encode($backdata));
+    }
 
 }

@@ -59,37 +59,10 @@
                     </tbody>
                 </table>
             </div>
-            <form method="post" class="js-ajax-form" action="#">
-                <div class="table_list">
-                    <table width="100%" class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th width="50">ID</th>
-                                <th>用户</th>
-                                <th>邮箱</th>
-                                <th>创建时间</th>
-                                <th width="120">操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <foreach name="users" item="vo">
-                                <tr>
-                                    <td>{$vo.id}</td>
-                                    <td>{$vo.user_login}</td>
-                                    <td>{$vo.user_email}</td>
-                                    <td>{$vo.create_time}</td>
-                                    <td>
-                                        <a href="javascript:;">修改</a>|
-                                        <a href="javascript:;" class="js-ajax-delete">删除</a>
-                                    </td>
-                                </tr>
-                            </foreach>
-                        </tbody>
-                    </table>
-                </div>
-            </form>
+
             <div id="app">
                 <!-- vue -->
+                <i-table border :columns="columns7" :data="listdata"></i-table>
                 <!--             
     <Modal v-model="visible" title="Welcome">Welcome to iView</Modal> -->
                 <i-button type="primary" @click="add">创建模板</i-button>
@@ -124,6 +97,8 @@
         el: '#app',
         data: {
             visible: false,
+            modal1: false,
+            currentIndex:'',
             valueData: [{
                 label: "字符型",
                 value: "0"
@@ -160,9 +135,106 @@
                 gid: '',
                 filename: '',
                 descoration: '',
-                postfixname: '.vue',
-                
-            }
+                postfixname: '.vue',                
+            },
+            columns7: [
+                {
+                    title: '所属项目',
+                    key: 'gid',
+                },
+                {
+                    title: '中文名称',
+                    key: 'descoration'
+                },
+                {
+                    title: '文件名',
+                    key: 'filename'
+                },
+                {
+                    title: '文件后缀',
+                    key: 'postfixname'
+                },
+                {
+                    title: '操作',
+                    key: 'action',
+                    width: 340,
+                    align: 'center',
+                    render: (h, params) => {
+                        
+                        return h('div', [
+                            h('Button', {
+                                props: {
+                                    type: 'text',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    'click': () => {
+                                        window.location.href="/thinkcmf/public/plugin/react/admin_index/prop/rid/"+params.row.id+"/gid/"+params.row.gid+"/filename/"+params.row.filename+".html";
+                                    }
+                                }
+
+                            }, '属性管理'),
+                            h('Button', {
+                                props: {
+                                    type: 'text',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    'click': () => {
+                                        window.location.href="/thinkcmf/public/plugin/react/admin_index/app/rid/"+params.row.id+"/filename/"+params.row.filename+".html";
+                                    }
+                                }
+                            }, '应用管理'),
+                            h('Button', {
+                                props: {
+                                    type: 'text',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    'click': () => {
+                                        window.location.href="/thinkcmf/public/plugin/react/admin_index/vue/rid/"+params.row.id+"/filename/"+params.row.filename+".html";
+                                    }
+                                }
+                            }, '生成文件'),
+                            h('Button', {
+                                props: {
+                                    type: 'text',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    'click': () => {
+                                        that.show(params.row.rid);
+                                    }
+                                }
+                            }, '修改'),
+                            h('Button', {
+                                props: {
+                                    type: 'text',
+                                    size: 'small'
+                                },
+                                on: {
+                                    click: () => {
+                                        that.remove(params.row.rid)
+                                    }
+                                }
+                            }, '删除')
+                        ]);
+                        
+                    }
+                }],
+                listdata: []
         },
         methods: {
             show: function() {
@@ -198,7 +270,28 @@
                     console.log('请求失败：'+resp.status+','+resp.statusText);
                 });
 
+            },
+            getlistData(rid){
+                var s = this;
+                var sendurl="{:cmf_plugin_url('React://AdminIndex/getfilelist')}";
+                axios({
+                    method:'get',
+                    url:sendurl,
+                    params:{
+                        //fileid: rid,
+                    }
+                }).then(function(resp){
+                    s.listdata=resp.data.list; //更新数据                  
+                }).catch(resp => {
+                    console.log('请求失败：'+resp.status+','+resp.statusText);
+                });                
             }
+        },
+        mounted(){
+            this.getlistData();            
+        },
+        beforeMount(){
+            that = this
         }
     })
     </script>

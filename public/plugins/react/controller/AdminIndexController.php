@@ -43,6 +43,7 @@ class AdminIndexController extends PluginAdminBaseController
         $users = Db::name("user")->limit(0, 5)->select();
         $filelist = Db::name("reactfilelist")->limit(0, 200)->select();
         $alltype=Db::field('group.id,group.names')->table('cmf_reactgroup group')->limit(100)->select();
+
         $this->assign("alltype", $alltype);
         $this->assign("users", $users);
         $this->assign("filelist",$filelist);
@@ -62,6 +63,16 @@ class AdminIndexController extends PluginAdminBaseController
      *     'param'  => ''
      * )
      */
+    public function getfilelist()
+    {
+        $alldata = Db::name("reactfilelist")->limit(0, 200)->select();
+        $backdata=[];
+        $backdata['status']='0';
+        $backdata['list']=$alldata;
+        $listdata=json_encode($backdata);
+        print_r($listdata);
+        $this->assign("listdata",$listdata);
+    }
     public function prop($rid)
     {
     	$alldata = Db::name("reactvue")->where('fileid='.$rid)->select();

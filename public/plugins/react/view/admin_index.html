@@ -47,12 +47,15 @@
                             </foreach>
                         </i-select>
                     </form-item>
-                    <form-item label="文件名">
-                        <i-input v-model="formItem.filename" name="filename"></i-input>
-                    </form-item>
                     <form-item label="中文名称">
                         <i-input v-model="formItem.descoration" name="descoration"></i-input>
                     </form-item>
+                    <form-item label="所在目录">
+                        <i-input v-model="formItem.directoryname" name="directoryname"></i-input>
+                    </form-item>
+                    <form-item label="文件名">
+                        <i-input v-model="formItem.filename" name="filename"></i-input>
+                    </form-item>                    
                     <form-item label="文件后缀">
                         <i-input v-model="formItem.postfixname" name="postfixname"></i-input>
                     </form-item>
@@ -102,6 +105,7 @@
             }],
             formItem: {
                 gid: '',
+                directoryname:'',
                 filename: '',
                 descoration: '',
                 postfixname: '.vue',                
@@ -114,6 +118,10 @@
                 {
                     title: '中文名称',
                     key: 'descoration'
+                },
+                {
+                    title: '所在目录',
+                    key: 'directoryname'
                 },
                 {
                     title: '文件名',
@@ -212,6 +220,7 @@
                 s.currentIndex="";
                 s.formItem={
                     gid: '',
+                    directoryname:'',
                     filename: '',
                     descoration: '',
                     postfixname: '.vue',            
@@ -228,7 +237,8 @@
                             gid: item.gid,
                             filename: item.filename,
                             descoration: item.descoration,
-                            postfixname: item.postfixname,             
+                            postfixname: item.postfixname, 
+                            directoryname:item.directoryname,           
                         }
                     }                    
                 })
@@ -245,6 +255,7 @@
                         filename: s.formItem.filename,
                         descoration: s.formItem.descoration,
                         postfixname: s.formItem.postfixname,
+                        directoryname:s.formItem.directoryname,
                     }
                 }).then(function(resp){
                     console.log(resp.data);
@@ -276,6 +287,7 @@
                         filename: s.formItem.filename,
                         descoration: s.formItem.descoration,
                         postfixname: s.formItem.postfixname,
+                        directoryname:s.formItem.directoryname,
                     }
                 }).then(function(resp){
                     console.log(resp.data);

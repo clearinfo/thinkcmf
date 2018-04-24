@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:46:"themes/admin_simpleboot3/admin\main\index.html";i:1524145169;s:77:"C:\wwwroot\htdocs\thinkcmf\public\themes\admin_simpleboot3\public\header.html";i:1524145170;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:46:"themes/admin_simpleboot3/admin\main\index.html";i:1516676889;s:71:"E:\wamp\www\thinkcmf\public\themes\admin_simpleboot3\public\header.html";i:1523762517;}*/ ?>
 <?php function _get_system_widget($name){ switch($name): case "CmfHub": ?>
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -176,7 +176,7 @@
 
 </style>
 <?php 
-    \think\Hook::listen('admin_before_head_end',$temp5addd955a1c3a,null,false);
+    \think\Hook::listen('admin_before_head_end',$temp5ade95340ac34,null,false);
  ?>
 </head>
 <body>
@@ -363,7 +363,7 @@
         });
 </script>
 <?php 
-    \think\Hook::listen('admin_before_body_end',$temp5addd955a1c8d,null,false);
+    \think\Hook::listen('admin_before_body_end',$temp5ade95340ac34,null,false);
  ?>
 </body>
 </html>

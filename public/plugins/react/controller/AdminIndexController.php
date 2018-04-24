@@ -41,7 +41,7 @@ class AdminIndexController extends PluginAdminBaseController
     public function index()
     {
         $users = Db::name("user")->limit(0, 5)->select();
-        $filelist = Db::name("reactfilelist")->limit(0, 5)->select();
+        $filelist = Db::name("reactfilelist")->limit(0, 200)->select();
         $alltype=Db::field('group.id,group.names')->table('cmf_reactgroup group')->limit(100)->select();
         $this->assign("alltype", $alltype);
         $this->assign("users", $users);
@@ -309,21 +309,18 @@ class AdminIndexController extends PluginAdminBaseController
     /*添加项目文件*/
     public function filelist()
     {
-        $users = Db::name("user")->limit(0, 5)->select();
-        //$this->assign("users", $users);
+        $reactgroup = Db::name("reactgroup")->limit(0, 30)->select();
+        $this->assign("reactgroup", $reactgroup);
         return $this->fetch('/admin_react/filelist');
     }
     public function addfile()
     {
         $data = $this->request->get();//默认param,可选get,post
-        print_r($data);
-        //$user = ['name_en'=>'title','name_zh'=>'名称2','formtype'=>1,'valtype'=>1,'values'=>'myname'];
-        //Db::name('reactvue')->insert($user);
         Db::name('reactfilelist')->insert($data);
-        $this->success('添加成功！');
-        //$this->success('添加成功！', cmf_plugin_url('React://AdminIndex/index'));
-
-
+        $backdata=[];
+        $backdata['status']='0';
+        $backdata['msg']="添加成功";
+        print_r(json_encode($backdata));
     }
 
 }

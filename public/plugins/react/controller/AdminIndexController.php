@@ -241,8 +241,7 @@ class AdminIndexController extends PluginAdminBaseController
             echo file_put_contents("{$pathname}/{$filename}.vue",$outputform);//createVue
         } else {
             echo file_put_contents("{$pathname}/{$filename}.vue",$outputform);//createVue
-        }
-        
+        }        
         $this->assign("outputform",$outputform);
         $this->assign("formtype",$formtype);
         $this->assign("users", $users);

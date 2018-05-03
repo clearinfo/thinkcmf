@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:47:"themes/admin_simpleboot3/admin\index\index.html";i:1524145169;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:47:"themes/admin_simpleboot3/admin\index\index.html";i:1525354094;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh_CN" style="overflow: hidden;">
 <head>
@@ -6,7 +6,7 @@
     <!-- Set render engine for 360 browser -->
     <meta name="renderer" content="webkit">
     <meta charset="utf-8">
-    <title>ThinkCMF <?php echo lang('ADMIN_CENTER'); ?></title>
+    <title>知者 <?php echo lang('ADMIN_CENTER'); ?></title>
     <meta name="description" content="This is page-header (.page-header &gt; h1)">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- HTML5 shim for IE8 support of HTML5 elements -->
@@ -152,7 +152,7 @@
 <div class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a href="<?php echo url('admin/index/index'); ?>" class="navbar-brand" style="min-width: 200px;text-align: center;">ThinkCMF</a>
+            <a href="<?php echo url('admin/index/index'); ?>" class="navbar-brand" style="min-width: 200px;text-align: center;">知者</a>
             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>

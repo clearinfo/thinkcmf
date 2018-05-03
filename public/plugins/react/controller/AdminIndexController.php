@@ -133,6 +133,7 @@ class AdminIndexController extends PluginAdminBaseController
         $alldata = Db::name("reactvue")->where('fileid='.$rid)->select();
         $getapptype = Db::name("reactapp")->where('fileid='.$rid)->select();
         $filename=$getclass[0]['filename'];
+        $directoryname=$getclass[0]['directoryname'];
         
         //$getprop=$_SERVER["REQUEST_URI"];
         $outputform="<template>\n";
@@ -233,7 +234,15 @@ class AdminIndexController extends PluginAdminBaseController
             $outputform.="}\n";
         $outputform.="</script>\n";
         print_r($outputform);
-        echo file_put_contents("components/{$filename}.vue",$outputform);//createVue
+        $pathname="components/{$directoryname}";//指定生成路径
+        $dir = iconv("UTF-8", "GBK", $pathname);
+        if (!file_exists($dir)){
+            mkdir ($dir,0777,true);
+            echo file_put_contents("{$pathname}/{$filename}.vue",$outputform);//createVue
+        } else {
+            echo file_put_contents("{$pathname}/{$filename}.vue",$outputform);//createVue
+        }
+        
         $this->assign("outputform",$outputform);
         $this->assign("formtype",$formtype);
         $this->assign("users", $users);

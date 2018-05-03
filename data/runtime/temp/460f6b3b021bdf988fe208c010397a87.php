@@ -1,9 +1,9 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:42:"themes/admin_simpleboot3/admin\\login.html";i:1524145169;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:42:"themes/admin_simpleboot3/admin\\login.html";i:1525353942;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>ThinkCMF <?php echo lang('ADMIN_CENTER'); ?></title>
+    <title>知者 <?php echo lang('ADMIN_CENTER'); ?></title>
     <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge"/>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta name="robots" content="noindex,nofollow">
@@ -32,7 +32,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
-                <h1 class="text-center">ThinkCMF</h1>
+                <h1 class="text-center">知者</h1>
                 <form class="js-ajax-form" action="<?php echo url('public/doLogin'); ?>" method="post">
                     <div class="form-group">
                         <input type="text" id="input_username" class="form-control" name="username"

@@ -19,10 +19,28 @@
                         listData:[]
                    }
                 },
-                methods:{
-                },
-                mounted(){//页面加载完成后显示
-                               
-                },
-            }
-        </script>
+methods:{
+addete(uid){
+var s=this;var sendurl="1";symbinUtil.ajax({
+                            url:sendurl,
+                            validate:s.validateData,
+                            data:formparams,
+fn(data){
+if(data.getret === 0){
+s.$Message.success(data.getmsg);
+s.getListData();
+}else{
+s.Message.error({
+content:data.getmsg,
+duration: 10
+});
+}
+}
+
+}),
+},
+},
+mounted(){
+},
+}
+</script>

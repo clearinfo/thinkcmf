@@ -102,8 +102,8 @@ class AdminIndexController extends PluginAdminBaseController
                     url:sendurl,
                     validate:s.validateData,
                     data:formparams,\n";
-                    $appmethods.=htmlentities("fn(data){\n");
-                        $appmethods.=htmlentities("if(data.getret === 0){\n"); 
+                    $appmethods.="fn(data){\n";
+                        $appmethods.="if(data.getret === 0){\n"; 
                             $appmethods.="s.\$Message.success(data.getmsg);\n";
                             $appmethods.="s.getListData();\n";
                         $appmethods.=htmlentities("}else{\n");
@@ -111,8 +111,8 @@ class AdminIndexController extends PluginAdminBaseController
                                 $appmethods.="content:data.getmsg,\n";
                                 $appmethods.="duration: 10\n";
                             $appmethods.="});\n";
-                        $appmethods.=htmlentities("}\n");                            
-                    $appmethods.=htmlentities("}\n");
+                        $appmethods.="}\n";                            
+                    $appmethods.="}\n";
             $appmethods.="\n}),\n";
         }
  

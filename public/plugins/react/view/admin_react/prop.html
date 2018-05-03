@@ -14,18 +14,21 @@
         <li class="active"><a href="{:cmf_plugin_url('React://AdminIndex/filelist')}">添加页面</a></li>
     </ul>
     <div id="app">
-        <div class="ivu-card-head">
-            当前文件：{$descoration}({$filename}{$postfixname})            
+        <p>&nbsp;</p>
+        <div>
+            当前页面：{$descoration}&nbsp;&nbsp;&nbsp;&nbsp;对应文件：{$filename}{$postfixname}         
         </div>
+        <p>&nbsp;</p>
         <i-button type="primary" @click="open">创建属性</i-button>
-        <p>&nbsp;{$rid}-<span>{{msg}}</span></p>
+        <p>&nbsp;</p>
         <i-table border :columns="columns7" :data="listdata"></i-table>
         <Modal v-model="modal1" 
         @on-ok="save"
         >
             <i-form ref="formInline" :model="formItem" :label-width="80">
-                <form-item label="上级文件">
-                    <i-input v-model="formItem.fileid" name="fileid" disabled ></i-input>
+                <form-item label="所属文件">
+                    <input v-model="formItem.fileid" name="fileid" type="hidden" />
+                    <i-input type="text" value="{$descoration}" disabled></i-input>
                 </form-item>
                 <form-item label="参数名称">
                     <i-input v-model="formItem.name_en" name="name_en" placeholder="以字母开头"></i-input>

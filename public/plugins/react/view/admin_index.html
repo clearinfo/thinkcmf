@@ -134,7 +134,7 @@
                 {
                     title: '操作',
                     key: 'action',
-                    width: 340,
+                    width: 420,
                     align: 'center',
                     render: (h, params) => {
                         
@@ -154,6 +154,21 @@
                                 }
 
                             }, '属性管理'),
+                            h('Button', {
+                                props: {
+                                    type: 'text',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    'click': () => {
+                                        window.location.href="/thinkcmf/public/plugin/react/admin_index/prop/rid/"+params.row.id+"/gid/"+params.row.gid+"/filename/"+params.row.filename+".html";
+                                    }
+                                }
+
+                            }, '数据源管理'),
                             h('Button', {
                                 props: {
                                     type: 'text',

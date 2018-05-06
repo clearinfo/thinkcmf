@@ -1,17 +1,39 @@
 <template>
 <Form ref="formItem" :model="formItem" :rules="ruleValidate" :label-width="80">
 <FormItem label="图片" prop="picurl">
-    <Input v-model="formItem.picurl" type="textarea" :rows="4"></Input>
-    </FormItem>
+<RadioGroup v-model="formItem.picurl">
+<Radio label="金斑蝶"></Radio>
+<Radio label="爪哇犀牛"></Radio>
+<Radio label="印度黑羚"></Radio>
+<Radio label="测试"></Radio>
+</RadioGroup>
+</FormItem>
 <FormItem label="内容" prop="content">
     <DatePicker type="date" multiple placeholder="Select date" style="width: 300px"></DatePicker>
     </FormItem>
 <FormItem label="颜色" prop="color">
-    <DatePicker type="date" multiple placeholder="Select date" style="width: 300px"></DatePicker>
-    </FormItem>
+<CheckboxGroup v-model="formItem.color">
+<Checkbox label="苹果"></Checkbox>
+<Checkbox label="香蕉"></Checkbox>
+<Checkbox label="西瓜"></Checkbox>
+</CheckboxGroup>
+</FormItem>
 <FormItem label="大小" prop="size">
     <DatePicker type="date" multiple placeholder="Select date" style="width: 300px"></DatePicker>
     </FormItem>
+<FormItem label="创建时间" prop="createtime">
+<CheckboxGroup v-model="formItem.createtime">
+<Checkbox label=""></Checkbox>
+</CheckboxGroup>
+</FormItem>
+<FormItem label="开关" prop="kaiguan">
+<Switch v-model="formItem.kaiguan" @on-change=""></Switch>
+</FormItem>
+<FormItem label="下拉框" prop="xialakuang">
+<Select v-model="formItem.xialakuang" style="width:200px">
+<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+</FormItem>
+</FormItem>
 </Form>
 <Table :columns="columns1" :data="listData"></Table>
 </template>
@@ -30,6 +52,9 @@
 content:'',//内容
 color:'',//颜色
 size:'',//大小
+createtime:'',//创建时间
+kaiguan:'',//开关
+xialakuang:'',//下拉框
 },
                         columns1:[{title:'图片',
 key:'picurl',
@@ -40,6 +65,15 @@ width:'120',
 },{title:'大小',
 key:'size',
 width:'120',
+},{title:'创建时间',
+key:'createtime',
+width:'100',
+},{title:'开关',
+key:'kaiguan',
+width:'80',
+},{title:'下拉框',
+key:'xialakuang',
+width:'0',
 },],
                         listData:[]
                    }

@@ -149,7 +149,37 @@ class AdminIndexController extends PluginAdminBaseController
     $outputform.="<FormItem label=\"{$value['name_zh']}\" prop=\"{$value['name_en']}\">
     <DatePicker type=\"date\" multiple placeholder=\"Select date\" style=\"width: 300px\"></DatePicker>
     </FormItem>\n";
-                        }elseif ($val==1) {
+                        }elseif($val==1){
+                            $outputform.="<FormItem label=\"{$value['name_zh']}\" prop=\"{$value['name_en']}\">\n";
+                            $outputform.="<RadioGroup v-model=\"formItem.{$value['name_en']}\">\n";
+                            foreach (explode(",", $value['values']) as $idx => $ele) {
+                                $outputform.="<Radio label=\"{$ele}\"></Radio>\n";
+                            }
+
+                            $outputform.="</RadioGroup>\n";
+                            $outputform.="</FormItem>\n";
+
+                        }elseif($val==2){
+                            $outputform.="<FormItem label=\"{$value['name_zh']}\" prop=\"{$value['name_en']}\">\n";
+                            $outputform.="<CheckboxGroup v-model=\"formItem.{$value['name_en']}\">\n";
+                            foreach (explode(",", $value['values']) as $idx => $ele) {
+                                $outputform.="<Checkbox label=\"{$ele}\"></Checkbox>\n";
+                            }
+
+                            $outputform.="</CheckboxGroup>\n";
+                            $outputform.="</FormItem>\n";
+
+                        }elseif($val==3){
+                            $outputform.="<FormItem label=\"{$value['name_zh']}\" prop=\"{$value['name_en']}\">\n"; //@on-change=\"{$value['eventname']}\"                
+                            $outputform.="<Switch v-model=\"formItem.{$value['name_en']}\"></Switch>\n";
+                            $outputform.="</FormItem>\n";
+                        }elseif($val==4){
+                            $outputform.="<FormItem label=\"{$value['name_zh']}\" prop=\"{$value['name_en']}\">\n";
+                            $outputform.="<Select v-model=\"formItem.{$value['name_en']}\" style=\"width:200px\">\n";                           
+                            $outputform.="<Option v-for=\"item in cityList\" :value=\"item.value\" :key=\"item.value\">{{ item.label }}</Option>\n";
+                            $outputform.="</FormItem>\n";
+                            $outputform.="</FormItem>\n";
+                        }elseif ($val==5) {
     $outputform.="<FormItem label=\"{$value['name_zh']}\" prop=\"{$value['name_en']}\">
     <Input v-model=\"formItem.{$value['name_en']}\" type=\"textarea\" :rows=\"4\"></Input>
     </FormItem>\n";

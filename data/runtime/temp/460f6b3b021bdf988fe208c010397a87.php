@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:42:"themes/admin_simpleboot3/admin\\login.html";i:1525353942;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:42:"themes/admin_simpleboot3/admin\\login.html";i:1548038861;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>

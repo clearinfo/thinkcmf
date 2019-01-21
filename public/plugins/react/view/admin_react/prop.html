@@ -134,7 +134,36 @@
                 },
                 {
                     title: '输入方式',
-                    key: 'formtype'
+                    key: 'formtype',
+                    render:(h,params)=>{
+                        var formtypeval='';
+                        if(params.row.formtype==0){
+                            formtypeval="输入框";  
+                        }else if(params.row.formtype==1){
+                            formtypeval= "单选";
+                        }else if(params.row.formtype==2){
+                            formtypeval= "多选";
+                        }else if(params.row.formtype==3){
+                            formtypeval= "开关";
+                        }else if(params.row.formtype==4){
+                            formtypeval= "选择器";
+                        }else if(params.row.formtype==5){
+                            formtypeval= "日期选择器";
+                        }else if(params.row.formtype==6){
+                            formtypeval= "上传";
+                        }
+                        return h('div',[
+                            h('span',{
+                                props:{
+                                    type: 'text',
+                                    size: 'small' 
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                }
+                            },formtypeval)
+                        ]);
+                    }
                 },
                 {
                     title: '数值类型',

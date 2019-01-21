@@ -54,7 +54,7 @@
                 </form-item>
                 <form-item label="数据源">
                     <i-input v-model="formItem.source" name="source" type="textarea" :rows="4"></i-input>
-                    <p>用于下拉框选择器</p>
+                    <p>用于下拉框选择器（属性名，如：dataList）</p>
                 </form-item>
                 <form-item label="附加事件">
                     <i-input v-model="formItem.eventname" name="eventname" placeholder="默认为空"></i-input>
@@ -167,7 +167,28 @@
                 },
                 {
                     title: '数值类型',
-                    key: 'valtype'
+                    key: 'valtype',
+                    render:(h,params)=>{
+                        var valtypeval='';
+                        if(params.row.valtype==0){
+                            valtypeval="字符型";  
+                        }else if(params.row.valtype==1){
+                            valtypeval= "数组型";
+                        }else if(params.row.valtype==2){
+                            valtypeval= "布尔型";
+                        };
+                        return h('div',[
+                            h('span',{
+                                props:{
+                                    type: 'text',
+                                    size: 'small' 
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                }
+                            },valtypeval)
+                        ]);
+                    }
                 },
                 {
                     title: '是否显示',

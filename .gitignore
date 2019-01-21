@@ -1,2 +1,4 @@
 data/runtime/
-*runtime
+/runtime
+thinkcmf/data/runtime
+/data/runtime
